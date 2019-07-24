@@ -1,0 +1,72 @@
+---
+title: "Workout Summary"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE,
+                      fig.align = 'center',
+                      fig.width = 8,
+                      fig.height = 3)
+library(lubridate)
+library(ggplot2)
+library(magrittr)
+library(dplyr)
+workout <- readr::read_csv("workouts.csv")
+plot_workouts <- function(x, day){
+  filt <- Sys.Date() - as.Date(x$Date) < 28
+  recent <- 
+    x[filt, ] %>% 
+    filter(Day == day) %>% 
+    select(-Day) %>% 
+    group_by(Date, Workout) %>% 
+    summarise(Max_Reps = max(Reps),
+              Max_Weight = max(Weight)) %>% 
+    reshape2::melt(id.vars = c('Date','Workout'))
+  p <- 
+    ggplot(data = recent, aes(x = as.Date(Date), y = value, color = variable)) + 
+    geom_line() + 
+    geom_point() + 
+    facet_wrap(~ Workout, scales = 'free') + 
+    theme_minimal() + 
+    scale_x_date(date_breaks = '1 week',
+                 date_labels = '%b %d') + 
+    labs(color = '', y = 'Weight', x = '') + 
+    theme(axis.text.x = element_text(angle = 0))
+  print(p)
+}
+```
+
+## Days Worked Out
+```{r summary}
+filt <- Sys.Date() - as.Date(workout$Date) < 7
+ggplot(data = unique(workout[filt, 'Date'])) + 
+  geom_bar(aes(x = as.Date(Date)), fill = 'green') + 
+  scale_x_date(date_breaks = '1 day',
+               date_labels = '%a, %b %d') + 
+  labs(x = '', y = "", title = 'Workouts this week') + 
+  theme_minimal() + 
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid = element_blank())
+```
+
+You have worked out for `r length(unique(workout$Date[filt]))` of the last 7 days. Your longest span without working out in the past month is `r as.numeric(max(diff(unique(workout$Date[Sys.Date() - as.Date(workout$Date) < 28]))))` days.
+
+## Chest Progress
+```{r chest, fig.height = 6}
+plot_workouts(workout, 'Chest')
+```
+
+## Back Progress
+```{r back, fig.height = 6}
+plot_workouts(workout, 'Back')
+```
+
+## Legs Progress
+```{r legs, fig.height = 6}
+plot_workouts(workout, 'Legs')
+```
