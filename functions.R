@@ -2,6 +2,7 @@ library(stringr)
 library(lubridate)
 library(telegram.bot)
 library(magrittr)
+library(dplyr)
 
 # Checks to see if the message is for workout data
 filter_workout <- function(message){
@@ -42,7 +43,7 @@ get_workout <- function(bot, update){
     # Check that name is valid
     full_names <-
       readr::read_csv("workout_names.csv") %>%
-      dplyr::filter(Workout == day) %>%
+      filter(Workout == day) %>%
       .$Exercise
 
     comparisons <-
