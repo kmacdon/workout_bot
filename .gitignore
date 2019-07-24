@@ -1,0 +1,10 @@
+.httr-oauth
+testing*
+summary*
+*.Rproj
+git
+.DS*
+.R*
+*html
+workouts.csv
+
