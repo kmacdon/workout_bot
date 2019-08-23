@@ -7,14 +7,14 @@ MessageFilters$workout <- BaseFilter(filter = filter_workout)
 
 # Connect to bot and add handler
 updater <- Updater(token = token)
-updater <<- updater + MessageHandler(get_workout, MessageFilters$workout)
+updater <- updater + MessageHandler(get_workout, MessageFilters$workout)
 
 
-updater <<- updater + CommandHandler("kill", kill)
+updater <- updater + CommandHandler("kill", kill)
 
-updater <<- updater + CommandHandler("report", send_report)
+updater <- updater + CommandHandler("report", send_report)
 
-updater <<- updater + CommandHandler("last", last, pass_args = TRUE)
+updater <- updater + CommandHandler("last", last, pass_args = TRUE)
 # Start watching
 updater$start_polling()
 

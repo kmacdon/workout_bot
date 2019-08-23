@@ -1,9 +1,4 @@
 Workout,Exercise
-Chest,Dumbbell Bench
-Chest,Dumbbell Incline Bench
-Chest,Triceps Rope Pulldown
-Chest,Triceps Cable Pullback
-Chest,Cable Flies
 Back,Dumbbell Rows
 Back,Lat Pulldown
 Back,21s
@@ -11,14 +6,21 @@ Back,Cable Curls
 Back,Cable Rope Pulls
 Back,Cable Bar Curls
 Back,Shoulder Press
-Legs,Leg Press
-Legs,Lunges
 Back,Cable Row Middle
+Back,Forearm Curls
+Back,Dumbell Curls
+Back,Shoulder Flies
+Back,Shoulder Shrugs
+Chest,Dumbbell Bench
+Chest,Dumbbell Incline Bench
+Chest,Triceps Rope Pulldown
+Chest,Triceps Cable Pullback
+Chest,Cable Flies
 Chest,Bench
 Chest,Triceps Dumbbell Extension
-Back, Dumbell Curls
+Chest,Fly Machine
+Legs,Leg Press
+Legs,Lunges
 Legs,Calf Raises
 Legs,Leg Extension
 Legs,Leg Curls
-Back,Shoulder Flies
-Back,Shoulder Shrugs
