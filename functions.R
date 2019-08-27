@@ -130,9 +130,17 @@ last <- function(bot, update, args){
   if (length(args > 0)){
     workout <- args[1]
     data <- readr::read_csv("workouts.csv") %>%
-      filter(Day == workout) %>%
+      filter(tolower(Day) == tolower(workout)) %>%
       filter(Date == max(Date)) %>%
       select(Workout, Weight, Reps)
+
+    if (nrow(data) == 0){
+      bot$sendMessage(chat_id = update$message$chat_id,
+                      text = "Did not recognize that day")
+      # Clean 'last' update
+      bot$getUpdates(offset = update$update_id + 1L)
+      return()
+    }
 
     msg <- NULL
     last <- ""
