@@ -57,7 +57,7 @@ get_workout <- function(bot, update){
     if(length(where) == 0){
       # Suggest closest name
       possible <- full_names[which.min(stringdist::stringdist(name, comparisons))]
-      msg <- paste0(" Did not recognize \'", name, "\'. Correcting to ", possible)
+      msg <- paste0(" Did not recognize \'", x[1], "\'. Correcting to ", possible)
       bot$sendMessage(chat_id = update$message$chat_id,
                       text = msg)
       name <- possible
